@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport_i = require('passport');
+const keys = require('./config/keys');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -14,7 +15,7 @@ const app = express();
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: [process.env.COOKIE_KEY]
+        keys: [keys.cookieKey]
     })
 );
 app.use(passport_i.initialize());
