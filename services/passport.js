@@ -20,24 +20,22 @@ passport.use(new GoogleStrategy({
     clientSecret:  s_keys.googleClientSecret || process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: s_keys.callbackURL || process.env.CALLBACK_URL
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOne({ googleId: profile.id }).then((existingUser) => {
-      if(existingUser) {
-        done(null, existingUser);
-      } else {
-        new User({ 
-          googleId: profile.id,
-          name: profile.fullName,
-          email: profile.email
-        })
-        .save()
-        .then(user => done(null, user));
-      }
-    })
+  async (accessToken, refreshToken, profile, done) => {
+    const existingUser = await User.findOne({ googleId: profile.id });
+   
+    if(existingUser) {
+      return done(null, existingUser);
+    } 
+
+    const user =  await new User({ 
+        googleId: profile.id,
+        name: profile.fullName,
+        email: profile.email
+      }).save();
+      done(null,user);
+    }
 
     // console.log('profile:' + JSON.stringify(profile));
     // console.log('accessToken:' + accessToken);
     // console.log('cb:' + cb);
-
-  }
 ));
