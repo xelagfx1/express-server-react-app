@@ -20,7 +20,7 @@ module.exports = (app) => {
     req.logout();
     res.send("You have been logged out. Goodbye.");
   })
-  app.get('/api/user', (req, res) => {
+  app.get('/api/current_user', (req, res) => {
     res.send(req.user);
   })
 };

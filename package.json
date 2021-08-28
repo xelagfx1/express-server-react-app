@@ -28,8 +28,5 @@
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "react-scripts": "^4.0.3"
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.1.8"
   }
 }
